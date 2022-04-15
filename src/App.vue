@@ -1,16 +1,8 @@
 <template>
 <div class="document">
-  <MainHeading>Main Heading</MainHeading>
-  <ChapterHeading>Charapter Heading</ChapterHeading>
-  <SectionHeading>Section Heading</SectionHeading>
-  <ParagraphHeading>Paragraph Heading</ParagraphHeading>
-  <ListElementPrimary>List element primary 1 and <KeywordPrimary>Keyword</KeywordPrimary> </ListElementPrimary>
-  <ListElementSecondary>List element secondary 1</ListElementSecondary>
-  <ListElementSecondary>List element secondary 2</ListElementSecondary>
-  <ListElementTertiary>List element tertiary 1 and <KeywordSecondary>Keyword</KeywordSecondary></ListElementTertiary>
-  <ListElementPrimary>List element primary 1</ListElementPrimary>
-  <ListElementPrimary>List element primary 1</ListElementPrimary>
-  <ListElementPrimary>List element primary 1</ListElementPrimary>
+  <template v-for="(element, i) of content" :key="i">
+    <component :is="element.elementType" contenteditable="true">{{element.textContent}}</component>
+  </template>
 </div>
 </template>
 
@@ -25,6 +17,7 @@ import ListElementSecondary from "./components/ListElementSecondary.vue"
 import ListElementTertiary from "./components/ListElementTertiary.vue"
 import KeywordPrimary from "./components/KeywordPrimary.vue"
 import KeywordSecondary from "./components/KeywordSecondary.vue"
+import { TextElement, TextElementType } from './modules/TextElement';
 
 @Options({
   components: {
@@ -39,5 +32,17 @@ import KeywordSecondary from "./components/KeywordSecondary.vue"
     KeywordSecondary
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  content: TextElement[] = [
+    new TextElement(TextElementType.MAIN_HEADING, "Hello world"),
+    new TextElement(TextElementType.CHAPTER_HEADING, "Hello world")
+  ];
+
+//   mounted() {
+//     document.addEventListener("beforeinput", (event) => {
+//       console.log(event)
+//       event.preventDefault()
+//     })
+//   }
+}
 </script>

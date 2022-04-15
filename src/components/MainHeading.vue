@@ -1,11 +1,17 @@
 <template>
-    <h1><slot></slot></h1>
+    <h1 ref="element"><slot></slot></h1>
 </template>
 
 <script lang="ts">
 import { Vue } from 'vue-class-component';
 
 export default class MainHeading extends Vue {
+    // mounted() {
+    //     (this.$refs.element as HTMLElement).addEventListener("beforeinput", (event) => {
+    //     console.log(event)
+    //     event.preventDefault()
+    // })
+    //   }
 }
 </script>
 
