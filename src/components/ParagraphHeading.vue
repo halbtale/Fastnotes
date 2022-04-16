@@ -1,11 +1,21 @@
 <template>
-    <h4><slot></slot></h4>
+    <h4 ref="element"><slot></slot></h4>
 </template>
 
 <script lang="ts">
 import { Vue } from 'vue-class-component';
 
 export default class ParagraphHeading extends Vue {
+    focusBlock() {
+        const htmlElement = this.$refs.element as HTMLElement;
+        const range = document.createRange();
+        const selection = window.getSelection();
+        range.setStart(htmlElement, 0);
+        range.collapse(true);
+        selection && selection.removeAllRanges();
+        selection && selection.addRange(range);
+        htmlElement.focus();
+    }
 }
 </script>
 
@@ -20,6 +30,5 @@ h4 {
     margin-bottom: 0.5rem;
     margin-left: 1rem;
     font-weight: bold;
-    width: fit-content;
 }
 </style>

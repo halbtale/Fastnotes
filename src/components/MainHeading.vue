@@ -6,12 +6,16 @@
 import { Vue } from 'vue-class-component';
 
 export default class MainHeading extends Vue {
-    // mounted() {
-    //     (this.$refs.element as HTMLElement).addEventListener("beforeinput", (event) => {
-    //     console.log(event)
-    //     event.preventDefault()
-    // })
-    //   }
+    focusBlock() {
+        const htmlElement = this.$refs.element as HTMLElement;
+        const range = document.createRange();
+        const selection = window.getSelection();
+        range.setStart(htmlElement, 0);
+        range.collapse(true);
+        selection && selection.removeAllRanges();
+        selection && selection.addRange(range);
+        htmlElement.focus();
+    }
 }
 </script>
 

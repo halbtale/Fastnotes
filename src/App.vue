@@ -1,7 +1,7 @@
 <template>
-<div class="document">
+<div class="document" @keypress="handleKeyPress">
   <template v-for="(element, i) of content" :key="i">
-    <component :is="element.elementType" contenteditable="true">{{element.textContent}}</component>
+    <component :is="element.elementType" contenteditable="true" @beforeinput="handleBeforeInputEvent($event, i)" :ref="'block'+i">{{element.textContent}}</component>
   </template>
 </div>
 </template>
@@ -33,16 +33,49 @@ import { TextElement, TextElementType } from './modules/TextElement';
   },
 })
 export default class App extends Vue {
-  content: TextElement[] = [
-    new TextElement(TextElementType.MAIN_HEADING, "Hello world"),
-    new TextElement(TextElementType.CHAPTER_HEADING, "Hello world")
-  ];
+	currentTextElementType = TextElementType.MAIN_HEADING;
 
-//   mounted() {
-//     document.addEventListener("beforeinput", (event) => {
-//       console.log(event)
-//       event.preventDefault()
-//     })
-//   }
+	content: TextElement[] = [
+		new TextElement(TextElementType.MAIN_HEADING, "Title")
+	];
+	
+	handleBeforeInputEvent(event: InputEvent, blockIndex: number) {
+		if (event.inputType === "insertParagraph") {
+			this.content.splice(blockIndex + 1, 0, new TextElement(this.currentTextElementType))
+			event.preventDefault()
+			setTimeout(() => {
+				const element = this.$refs["block"+ (blockIndex + 1)] as {focusBlock: () => void}[];
+				element[0].focusBlock();
+			}, 1)
+		}
+	}
+
+	handleKeyPress(event: KeyboardEvent) {
+		if (event.shiftKey && event.ctrlKey) {
+			switch (event.key) {
+				case "1":
+					this.currentTextElementType = TextElementType.MAIN_HEADING;
+					break;
+				case "2":
+					this.currentTextElementType = TextElementType.CHAPTER_HEADING;
+					break;
+				case "3":
+					this.currentTextElementType = TextElementType.SECTION_HEADING;
+					break;
+				case "4":
+					this.currentTextElementType = TextElementType.PARAGRAPH_HEADING;
+					break;
+				case "5":
+					this.currentTextElementType = TextElementType.LIST_ELEMENT_PRIMARY;
+					break;
+				case "6":
+					this.currentTextElementType = TextElementType.LIST_ELEMENT_SECONDARY;
+					break;
+				case "7":
+					this.currentTextElementType = TextElementType.LIST_ELEMENT_TERTIARY;
+					break;
+			}
+		}
+	}
 }
 </script>
