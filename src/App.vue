@@ -49,6 +49,7 @@ export default class App extends Vue {
 				element[0].focusBlock();
 			}, 10)
 		}
+		console.log(event)
 	}
 
 	handleKeyPress(event: KeyboardEvent) {

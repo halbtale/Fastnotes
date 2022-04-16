@@ -1,5 +1,5 @@
 <template>
-    <h3 ref="element" @input="handleInput">{{value}}</h3>
+    <h3 ref="element" @focusout="handleInput">{{value}}</h3>
 </template>
 
 <script lang="ts">
