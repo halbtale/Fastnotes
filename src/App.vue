@@ -16,7 +16,6 @@ import ListElementPrimary from "./components/ListElementPrimary.vue"
 import ListElementSecondary from "./components/ListElementSecondary.vue"
 import ListElementTertiary from "./components/ListElementTertiary.vue"
 import { TextElement, TextElementType } from './modules/TextElement';
-import { exportToPdf } from './modules/ExportToPdf';
 
 @Options({
   components: {
@@ -96,7 +95,7 @@ export default class App extends Vue {
 					this.outputContent()
 					break;
 				case "E":
-					exportToPdf();
+					window.print()
 					break;
 			}
 		}

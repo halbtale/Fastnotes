@@ -9,11 +9,19 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgb(242, 242, 242);
+
+    @media screen {
+        background-color: rgb(242, 242, 242);
+    }
+
+    @media print {
+        background-color: white;
+    }
 }
 
 * {
     box-sizing: inherit;
+    color-adjust: exact !important;
 }
 
 div {
