@@ -1,6 +1,5 @@
 <template>
-<div class="document" @keypress="handleKeyPress">
-{{content}}
+<div class="document">
 	<template v-for="(element, i) of content" :key="i">
 		<component :is="element.elementType" contenteditable="true" @beforeinput="handleBeforeInputEvent($event, i)" :ref="'block'+i" v-model="element.textContent"></component>
 	</template>
@@ -52,6 +51,10 @@ export default class App extends Vue {
 		// }
 	}
 
+	mounted() {
+		document.addEventListener("keypress", this.handleKeyPress)
+	}
+
 	handleKeyPress(event: KeyboardEvent) {
 		if (event.shiftKey && event.ctrlKey) {
 			switch (event.key) {
@@ -82,8 +85,25 @@ export default class App extends Vue {
 				case "9":
 					this.addInlineBlock(TextElementType.KEYWORD_SECONDARY);
 					break;
+				case "I":
+					this.importContent()
+					break;
+				case "O":
+					this.outputContent()
+					break;
 			}
 		}
+	}
+
+	importContent() {
+		const content = prompt("Input your content");
+		if (content) {
+			this.content = JSON.parse(content);
+		}
+	}
+
+	outputContent() {
+		alert(JSON.stringify(this.content))
 	}
 
 	addInlineBlock(type: TextElementType) {
