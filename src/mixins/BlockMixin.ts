@@ -7,6 +7,7 @@ export default class BlockMixin extends Vue {
 
     handleInput() {
         const htmlElement = this.$refs.element as HTMLElement;
+        if (!htmlElement) return;
         this.$emit("update:modelValue", htmlElement.innerHTML)
     }
 

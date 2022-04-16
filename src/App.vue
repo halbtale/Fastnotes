@@ -44,11 +44,14 @@ export default class App extends Vue {
 				element[0].focusBlock();
 			}, 10)
 		} 
-		// else if (event.inputType === "deleteContentBackward") {
-		// 	if (!this.content[blockIndex].textContent) {
-		// 		this.content.splice(blockIndex, 1)
-		// 	}
-		// }
+		else if (event.inputType === "deleteContentBackward") {
+			const target = event.target as HTMLElement;
+			if (target) {
+				if (!target.innerText) {
+					this.content.splice(blockIndex, 1)
+				}
+			}
+		}
 	}
 
 	mounted() {
