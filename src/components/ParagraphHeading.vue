@@ -1,21 +1,12 @@
 <template>
-    <h4 ref="element"><slot></slot></h4>
+    <h4 ref="element" @input="handleInput">{{value}}</h4>
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-class-component';
+import BlockMixin from '@/mixins/BlockMixin';
+import { mixins } from 'vue-class-component';
 
-export default class ParagraphHeading extends Vue {
-    focusBlock() {
-        const htmlElement = this.$refs.element as HTMLElement;
-        const range = document.createRange();
-        const selection = window.getSelection();
-        range.setStart(htmlElement, 0);
-        range.collapse(true);
-        selection && selection.removeAllRanges();
-        selection && selection.addRange(range);
-        htmlElement.focus();
-    }
+export default class ParagraphHeading extends mixins(BlockMixin) {
 }
 </script>
 

@@ -13,11 +13,9 @@ export enum TextElementType {
 export class TextElement {
     textContent = "";
     elementType: TextElementType;
-    subElements: TextElement[] = [];
 
-    constructor(elementType: TextElementType, textContent?: string, subElements?: TextElement[]){
+    constructor(elementType: TextElementType, textContent?: string){
         this.elementType = elementType;
         if (textContent) this.textContent = textContent;
-        if (subElements && subElements.length) this.subElements = subElements;
     }
 }

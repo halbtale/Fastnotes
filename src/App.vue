@@ -1,8 +1,9 @@
 <template>
 <div class="document" @keypress="handleKeyPress">
-  <template v-for="(element, i) of content" :key="i">
-    <component :is="element.elementType" contenteditable="true" @beforeinput="handleBeforeInputEvent($event, i)" :ref="'block'+i">{{element.textContent}}</component>
-  </template>
+	{{content}}
+	<template v-for="(element, i) of content" :key="i">
+		<component :is="element.elementType" contenteditable="true" @beforeinput="handleBeforeInputEvent($event, i)" :ref="'block'+i" v-model="element.textContent"></component>
+	</template>
 </div>
 </template>
 
@@ -46,7 +47,7 @@ export default class App extends Vue {
 			setTimeout(() => {
 				const element = this.$refs["block"+ (blockIndex + 1)] as {focusBlock: () => void}[];
 				element[0].focusBlock();
-			}, 1)
+			}, 10)
 		}
 	}
 

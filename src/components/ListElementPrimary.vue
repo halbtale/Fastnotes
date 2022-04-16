@@ -1,23 +1,15 @@
 <template>
-    <p ref="element"><slot></slot></p>
+    <p ref="element" @input="handleInput">{{value}}</p>
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-class-component';
+import BlockMixin from '@/mixins/BlockMixin';
+import { mixins } from 'vue-class-component';
 
-export default class ListElementPrimary extends Vue {
-    focusBlock() {
-        const htmlElement = this.$refs.element as HTMLElement;
-        const range = document.createRange();
-        const selection = window.getSelection();
-        range.setStart(htmlElement, 0);
-        range.collapse(true);
-        selection && selection.removeAllRanges();
-        selection && selection.addRange(range);
-        htmlElement.focus();
-    }
+export default class ListElementPrimary extends mixins(BlockMixin) {
 }
 </script>
+
 
 <style lang="scss" scoped>
 
