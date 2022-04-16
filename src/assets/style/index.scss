@@ -31,3 +31,17 @@ div {
     min-width: min(800px, 80vw);
     min-height: 100vh;
 }
+
+span.keywordprimary {
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.2em;
+    background-color: rgba(255, 255, 0, 0.423);
+}
+
+span.keywordsecondary {
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+    text-transform: uppercase;
+    font-weight: bold;
+}

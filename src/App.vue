@@ -16,8 +16,6 @@ import ParagraphHeading from "./components/ParagraphHeading.vue"
 import ListElementPrimary from "./components/ListElementPrimary.vue"
 import ListElementSecondary from "./components/ListElementSecondary.vue"
 import ListElementTertiary from "./components/ListElementTertiary.vue"
-import KeywordPrimary from "./components/KeywordPrimary.vue"
-import KeywordSecondary from "./components/KeywordSecondary.vue"
 import { TextElement, TextElementType } from './modules/TextElement';
 
 @Options({
@@ -28,9 +26,7 @@ import { TextElement, TextElementType } from './modules/TextElement';
     ParagraphHeading,
     ListElementPrimary,
     ListElementSecondary,
-    ListElementTertiary,
-    KeywordPrimary,
-    KeywordSecondary
+    ListElementTertiary
   },
 })
 export default class App extends Vue {
@@ -81,19 +77,28 @@ export default class App extends Vue {
 					this.currentTextElementType = TextElementType.LIST_ELEMENT_TERTIARY;
 					break;
 				case "8":
-					this.addInlineBlock();
+					this.addInlineBlock(TextElementType.KEYWORD_PRIMARY);
+					break;
+				case "9":
+					this.addInlineBlock(TextElementType.KEYWORD_SECONDARY);
 					break;
 			}
 		}
 	}
 
-	addInlineBlock() {
-		const strongElement = document.createElement("strong");
+	addInlineBlock(type: TextElementType) {
 		const userSelection = window.getSelection();
 		if (!userSelection) return;
 		const selectedTextRange = userSelection.getRangeAt(0);
-		selectedTextRange.surroundContents(strongElement);
-		console.log("OK")
+		const parentElement = selectedTextRange.commonAncestorContainer.parentElement;
+		console.log(parentElement)
+		if (parentElement?.tagName === "SPAN") {
+			parentElement.classList.toggle(type.toLowerCase())
+		} else {
+			const spanElement = document.createElement("span");
+			spanElement.classList.toggle(type.toLowerCase())
+			selectedTextRange.surroundContents(spanElement);
+		}
 	}
 }
 </script>
