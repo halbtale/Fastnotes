@@ -1,6 +1,6 @@
 <template>
 <div class="document" @keypress="handleKeyPress">
-	{{content}}
+{{content}}
 	<template v-for="(element, i) of content" :key="i">
 		<component :is="element.elementType" contenteditable="true" @beforeinput="handleBeforeInputEvent($event, i)" :ref="'block'+i" v-model="element.textContent"></component>
 	</template>
@@ -48,8 +48,12 @@ export default class App extends Vue {
 				const element = this.$refs["block"+ (blockIndex + 1)] as {focusBlock: () => void}[];
 				element[0].focusBlock();
 			}, 10)
-		}
-		console.log(event)
+		} 
+		// else if (event.inputType === "deleteContentBackward") {
+		// 	if (!this.content[blockIndex].textContent) {
+		// 		this.content.splice(blockIndex, 1)
+		// 	}
+		// }
 	}
 
 	handleKeyPress(event: KeyboardEvent) {
@@ -76,8 +80,20 @@ export default class App extends Vue {
 				case "7":
 					this.currentTextElementType = TextElementType.LIST_ELEMENT_TERTIARY;
 					break;
+				case "8":
+					this.addInlineBlock();
+					break;
 			}
 		}
+	}
+
+	addInlineBlock() {
+		const strongElement = document.createElement("strong");
+		const userSelection = window.getSelection();
+		if (!userSelection) return;
+		const selectedTextRange = userSelection.getRangeAt(0);
+		selectedTextRange.surroundContents(strongElement);
+		console.log("OK")
 	}
 }
 </script>

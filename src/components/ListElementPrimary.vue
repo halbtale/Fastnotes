@@ -1,5 +1,5 @@
 <template>
-    <p ref="element" @focusout="handleInput">{{value}}</p>
+    <p ref="element" @focusout="handleInput" v-html="value"></p>
 </template>
 
 <script lang="ts">
