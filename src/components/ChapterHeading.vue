@@ -17,8 +17,9 @@ h2 {
     font-family: 'Roboto', sans-serif;
     font-size: 2.2rem;
     text-transform: uppercase;
-    padding: 1rem 1rem;
-    margin: 0;
+    margin-left: 1.3rem;
+    margin-top: 1.1em;
+    margin-bottom: 0.4em;
     color: rgb(205, 0, 0);
     font-weight: bold;
 }

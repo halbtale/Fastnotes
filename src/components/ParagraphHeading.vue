@@ -17,9 +17,10 @@ h4 {
     font-family: 'Roboto', sans-serif;
     font-size: 1.2rem;
     text-transform: uppercase;
-    margin-top: 1.1rem;
-    margin-bottom: 0.5rem;
-    margin-left: 1rem;
+    margin-left: 1.7rem;
+    margin-top: 1.1em;
+    margin-bottom: 0.4em;
     font-weight: bold;
+    text-decoration: underline;
 }
 </style>

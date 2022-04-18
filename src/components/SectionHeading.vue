@@ -20,9 +20,9 @@ h3 {
     border: 1px solid black;
     text-transform: uppercase;
     padding: 0.4rem 0.8rem;
-    margin-left: 1rem;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    margin-left: 1.3rem;
+    margin-top: 1.1em;
+    margin-bottom: 0.4em;
     font-weight: bold;
     width: fit-content;
 }
