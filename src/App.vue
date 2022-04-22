@@ -3,6 +3,9 @@
 	<template v-for="(element, i) of content" :key="i">
 		<component :is="element.elementType" contenteditable="true" @beforeinput="handleBeforeInputEvent($event, i)" :ref="'block'+i" v-model="element.textContent"></component>
 	</template>
+	<AppDialog :open="isOutputDialogOpen">
+		{{content}}
+	</AppDialog>
 </div>
 </template>
 
@@ -16,6 +19,7 @@ import ListElementPrimary from "./components/ListElementPrimary.vue"
 import ListElementSecondary from "./components/ListElementSecondary.vue"
 import ListElementTertiary from "./components/ListElementTertiary.vue"
 import { TextElement, TextElementType } from './modules/TextElement';
+import AppDialog from './components/AppDialog.vue';
 
 @Options({
   components: {
@@ -25,11 +29,13 @@ import { TextElement, TextElementType } from './modules/TextElement';
     ParagraphHeading,
     ListElementPrimary,
     ListElementSecondary,
-    ListElementTertiary
+    ListElementTertiary,
+	AppDialog
   },
 })
 export default class App extends Vue {
 	currentTextElementType = TextElementType.MAIN_HEADING;
+	isOutputDialogOpen = false;
 
 	content: TextElement[] = [
 		new TextElement(TextElementType.MAIN_HEADING, "Title")
@@ -109,7 +115,7 @@ export default class App extends Vue {
 	}
 
 	outputContent() {
-		alert(JSON.stringify(this.content))
+		this.isOutputDialogOpen = !this.isOutputDialogOpen;
 	}
 
 	addInlineBlock(type: TextElementType) {
