@@ -61,7 +61,7 @@ export default class App extends Vue {
 	}
 
 	mounted() {
-		document.addEventListener("keypress", this.handleKeyPress)
+		document.addEventListener("keydown", this.handleKeyPress)
 	}
 
 	handleKeyPress(event: KeyboardEvent) {
