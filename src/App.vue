@@ -61,55 +61,56 @@ export default class App extends Vue {
 	}
 
 	mounted() {
-		document.addEventListener("keydown", this.handleKeyPress)
+		document.addEventListener("keypress", this.handleKeyPress)
 	}
 
 	handleKeyPress(event: KeyboardEvent) {
-		if (event.shiftKey && event.ctrlKey) {
-			switch (event.key) {
-				case "1":
+		if (event.altKey) {
+			switch (event.code) {
+				case "Digit1":
 					this.currentTextElementType = TextElementType.MAIN_HEADING;
 					break;
-				case "2":
+				case "Digit2":
 					this.currentTextElementType = TextElementType.CHAPTER_HEADING;
 					break;
-				case "3":
+				case "Digit3":
 					this.currentTextElementType = TextElementType.SECTION_HEADING;
 					break;
 				case "4":
 					this.currentTextElementType = TextElementType.PARAGRAPH_HEADING;
 					break;
-				case "5":
+				case "Digit5":
 					this.currentTextElementType = TextElementType.LIST_ELEMENT_PRIMARY;
 					break;
-				case "6":
+				case "Digit6":
 					this.currentTextElementType = TextElementType.LIST_ELEMENT_SECONDARY;
 					break;
-				case "7":
+				case "Digit7":
 					this.currentTextElementType = TextElementType.LIST_ELEMENT_TERTIARY;
 					break;
-				case "8":
+				case "Digit8":
 					this.addInlineBlock(TextElementType.KEYWORD_PRIMARY);
 					break;
-				case "9":
+				case "Digit9":
 					this.addInlineBlock(TextElementType.KEYWORD_SECONDARY);
 					break;
-				case "I":
+				case "KeyI":
 					this.importContent()
 					break;
-				case "O":
+				case "KeyO":
 					this.outputContent()
 					break;
-				case "E":
+				case "KeyE":
 					window.print()
 					break;
-				case "R":
+				case "KeyR":
 					this.restore();
 					break;
-				case "S":
+				case "KeyS":
 					this.save();
 					break;
 			}
+			event.preventDefault();
 		}
 	}
 
