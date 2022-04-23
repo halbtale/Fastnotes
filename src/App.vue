@@ -103,6 +103,12 @@ export default class App extends Vue {
 				case "E":
 					window.print()
 					break;
+				case "R":
+					this.restore();
+					break;
+				case "S":
+					this.save();
+					break;
 			}
 		}
 	}
@@ -116,6 +122,17 @@ export default class App extends Vue {
 
 	outputContent() {
 		this.isOutputDialogOpen = !this.isOutputDialogOpen;
+	}
+
+	save() {
+		localStorage.setItem('fastnotes_data', JSON.stringify(this.content))
+	}
+
+	restore() {
+		const data = localStorage.getItem('fastnotes_data');
+		if (data) {
+			this.content = JSON.parse(data);
+		}
 	}
 
 	addInlineBlock(type: TextElementType) {
