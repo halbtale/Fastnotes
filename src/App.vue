@@ -1,5 +1,5 @@
 <template>
-<div class="document">
+<div class="document" ref="document">
 	<template v-for="(element, i) of content" :key="i">
 		<component :is="element.elementType" contenteditable="true" @beforeinput="handleBeforeInputEvent($event, i)" :ref="'block'+i" v-model="element.textContent"></component>
 	</template>
@@ -32,6 +32,7 @@
 			<li>Shift + Alt + S = Save data</li>
 			<li>Shift + Alt + R = Restore data previously saved</li>
 			<li>Shift + Alt + E = Print</li>
+			<li>Shift + Alt + F = Toggle Fullscreen</li>
 			<li>Shift + Alt + H = Help commands</li>
 		</ul>
 	</AppDialog>
@@ -66,6 +67,7 @@ export default class App extends Vue {
 	currentTextElementType = TextElementType.MAIN_HEADING;
 	isOutputDialogOpen = false;
 	isHelpDialogOpen = false;
+	isFullscreen = false;
 
 	content: TextElement[] = [
 		new TextElement(TextElementType.MAIN_HEADING, "Title")
@@ -148,6 +150,9 @@ export default class App extends Vue {
 				case "Equal":
 					this.addInlineBlock(TextElementType.SUP, "SUP");
 					break;
+				case "KeyF":
+					this.toggleFullscreen();
+					break;
 			}
 			event.preventDefault();
 		}
@@ -183,6 +188,17 @@ export default class App extends Vue {
 			spanElement.classList.toggle(type.toLowerCase())
 			selectedTextRange.surroundContents(spanElement);
 		}
+	}
+
+	async toggleFullscreen() {
+		if (!this.isFullscreen) {
+			const body = document.querySelector('html');
+			if (!body) return;
+			await body.requestFullscreen();
+		} else {
+			await document.exitFullscreen();
+		}
+		this.isFullscreen = !this.isFullscreen;
 	}
 }
 </script>
