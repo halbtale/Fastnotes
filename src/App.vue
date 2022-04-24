@@ -6,6 +6,35 @@
 	<AppDialog :open="isOutputDialogOpen">
 		{{content}}
 	</AppDialog>
+	<AppDialog :open="isHelpDialogOpen">
+		<h2>Main commands</h2>
+		<h3>Text styles (press command and then press enter)</h3>
+		<ul>
+			<li>Shift + Alt + 1 = Main Heading</li>
+			<li>Shift + Alt + 2 = Charapter Heading</li>
+			<li>Shift + Alt + 3 = Chapter Heading</li>
+			<li>Shift + Alt + 4 = Section Heading</li>
+			<li>Shift + Alt + 5 = List Element Primary</li>
+			<li>Shift + Alt + 6 = List Element Secondary</li>
+			<li>Shift + Alt + 7 = List Element Tertiary</li>
+		</ul>
+		<h3>Text decorations (select text and then press command)</h3>
+		<ul>
+			<li>Shift + Alt + 8 = Keyword+</li>
+			<li>Shift + Alt + 9 = Keyword</li>
+			<li>Shift + Alt + _ = Sub text</li>
+			<li>Shift + Alt + ^ = Sup text</li>
+		</ul>
+		<h3>Utility commands</h3>
+		<ul>
+			<li>Shift + Alt + I = Import data</li>
+			<li>Shift + Alt + O = Export data</li>
+			<li>Shift + Alt + S = Save data</li>
+			<li>Shift + Alt + R = Restore data previously saved</li>
+			<li>Shift + Alt + E = Print</li>
+			<li>Shift + Alt + H = Help commands</li>
+		</ul>
+	</AppDialog>
 </div>
 </template>
 
@@ -36,6 +65,7 @@ import AppDialog from './components/AppDialog.vue';
 export default class App extends Vue {
 	currentTextElementType = TextElementType.MAIN_HEADING;
 	isOutputDialogOpen = false;
+	isHelpDialogOpen = false;
 
 	content: TextElement[] = [
 		new TextElement(TextElementType.MAIN_HEADING, "Title")
@@ -98,7 +128,7 @@ export default class App extends Vue {
 					this.importContent()
 					break;
 				case "KeyO":
-					this.outputContent()
+					this.isOutputDialogOpen = !this.isOutputDialogOpen;
 					break;
 				case "KeyE":
 					window.print()
@@ -108,6 +138,9 @@ export default class App extends Vue {
 					break;
 				case "KeyS":
 					this.save();
+					break;
+				case "KeyH":
+					this.isHelpDialogOpen = !this.isHelpDialogOpen;
 					break;
 				case "Slash":
 					this.addInlineBlock(TextElementType.SUB, "SUB");
@@ -125,10 +158,6 @@ export default class App extends Vue {
 		if (content) {
 			this.content = JSON.parse(content);
 		}
-	}
-
-	outputContent() {
-		this.isOutputDialogOpen = !this.isOutputDialogOpen;
 	}
 
 	save() {
