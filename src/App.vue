@@ -76,7 +76,7 @@ export default class App extends Vue {
 				case "Digit3":
 					this.currentTextElementType = TextElementType.SECTION_HEADING;
 					break;
-				case "4":
+				case "Digit4":
 					this.currentTextElementType = TextElementType.PARAGRAPH_HEADING;
 					break;
 				case "Digit5":
@@ -109,6 +109,12 @@ export default class App extends Vue {
 				case "KeyS":
 					this.save();
 					break;
+				case "Slash":
+					this.addInlineBlock(TextElementType.SUB, "SUB");
+					break;
+				case "Period":
+					this.addInlineBlock(TextElementType.SUP, "SUP");
+					break;
 			}
 			event.preventDefault();
 		}
@@ -136,16 +142,15 @@ export default class App extends Vue {
 		}
 	}
 
-	addInlineBlock(type: TextElementType) {
+	addInlineBlock(type: TextElementType, elementTag = "SPAN") {
 		const userSelection = window.getSelection();
 		if (!userSelection) return;
 		const selectedTextRange = userSelection.getRangeAt(0);
 		const parentElement = selectedTextRange.commonAncestorContainer.parentElement;
-		console.log(parentElement)
-		if (parentElement?.tagName === "SPAN") {
+		if (parentElement?.tagName === elementTag.toUpperCase()) {
 			parentElement.classList.toggle(type.toLowerCase())
 		} else {
-			const spanElement = document.createElement("span");
+			const spanElement = document.createElement(elementTag.toLowerCase());
 			spanElement.classList.toggle(type.toLowerCase())
 			selectedTextRange.surroundContents(spanElement);
 		}

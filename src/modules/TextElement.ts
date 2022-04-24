@@ -7,7 +7,9 @@ export enum TextElementType {
     LIST_ELEMENT_SECONDARY = "ListElementSecondary",
     LIST_ELEMENT_TERTIARY = "ListElementTertiary",
     KEYWORD_PRIMARY = "KeywordPrimary",
-    KEYWORD_SECONDARY = "KeywordSecondary"
+    KEYWORD_SECONDARY = "KeywordSecondary",
+    SUP = "sup",
+    SUB = "sub"
 }
 
 export class TextElement {

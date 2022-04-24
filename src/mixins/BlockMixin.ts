@@ -8,7 +8,13 @@ export default class BlockMixin extends Vue {
     handleInput() {
         const htmlElement = this.$refs.element as HTMLElement;
         if (!htmlElement) return;
+        this.manipulateContentBeforeUpdating(htmlElement);
         this.$emit("update:modelValue", htmlElement.innerHTML)
+    }
+
+    manipulateContentBeforeUpdating(htmlElement: HTMLElement) {
+        htmlElement.innerHTML = htmlElement.innerHTML.replaceAll(/<\/sup>([^&])?/g,"</sup>&zwnj;$1");
+        htmlElement.innerHTML = htmlElement.innerHTML.replaceAll(/<\/sub>([^&])?/g,"</sub>&zwnj;$1");
     }
 
     focusBlock() {
