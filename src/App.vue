@@ -65,7 +65,7 @@ export default class App extends Vue {
 	}
 
 	handleKeyPress(event: KeyboardEvent) {
-		if (event.altKey) {
+		if (event.altKey && event.shiftKey) {
 			switch (event.code) {
 				case "Digit1":
 					this.currentTextElementType = TextElementType.MAIN_HEADING;
@@ -112,7 +112,7 @@ export default class App extends Vue {
 				case "Slash":
 					this.addInlineBlock(TextElementType.SUB, "SUB");
 					break;
-				case "Period":
+				case "Equal":
 					this.addInlineBlock(TextElementType.SUP, "SUP");
 					break;
 			}
