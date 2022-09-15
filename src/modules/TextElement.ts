@@ -16,8 +16,18 @@ export class TextElement {
     textContent = "";
     elementType: TextElementType;
 
-    constructor(elementType: TextElementType, textContent?: string){
+    constructor(elementType: TextElementType, textContent?: string) {
         this.elementType = elementType;
         if (textContent) this.textContent = textContent;
     }
 }
+
+export const textHierarchy = [
+    TextElementType.MAIN_HEADING,
+    TextElementType.CHAPTER_HEADING,
+    TextElementType.SECTION_HEADING,
+    TextElementType.PARAGRAPH_HEADING,
+    TextElementType.LIST_ELEMENT_PRIMARY,
+    TextElementType.LIST_ELEMENT_SECONDARY,
+    TextElementType.LIST_ELEMENT_TERTIARY
+]
