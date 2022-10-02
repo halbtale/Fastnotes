@@ -97,7 +97,7 @@ export default class App extends Vue {
 		} else if (event.inputType === 'deleteContentBackward') {
 			const target = event.target as HTMLElement;
 			if (target) {
-				if (!target.innerText) {
+				if (!target.innerText || !target.innerText.replace("\n", "")) {
 					this.content.splice(blockIndex, 1);
 				}
 			}
