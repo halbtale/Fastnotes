@@ -32,6 +32,13 @@
 				<li>Shift + Alt + _ = Sub text</li>
 				<li>Shift + Alt + ^ = Sup text</li>
 			</ul>
+			<h3>Text position</h3>
+			<ul>
+				<li>Shift + Alt + ↑ = Move text block up</li>
+				<li>Shift + Alt + ↓ = Move text block down</li>
+				<li>Shift + Alt + → = Decrease text hierarchy</li>
+				<li>Shift + Alt + ← = Increase text hierarchy</li>
+			</ul>
 			<h3>Utility commands</h3>
 			<ul>
 				<li>Shift + Alt + I = Import data</li>
@@ -174,6 +181,12 @@ export default class App extends Vue {
 					break;
 				case 'ArrowDown':
 					this.moveBlockDown();
+					break;
+				case 'ArrowLeft':
+					this.increaseBlockHierarchy();
+					break;
+				case 'ArrowRight':
+					this.decreaseBlockHierarchy();
 					break;
 			}
 			event.preventDefault();
@@ -369,6 +382,14 @@ export default class App extends Vue {
 			}[];
 			element[0].focusBlock();
 		}, 10);
+	}
+
+	decreaseBlockHierarchy() {
+		this.content[this.currentBlockIndex].decreaseHierarchy()
+	}
+
+	increaseBlockHierarchy() {
+		this.content[this.currentBlockIndex].increaseHierarchy()
 	}
 
 	async toggleFullscreen() {

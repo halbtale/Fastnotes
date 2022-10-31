@@ -20,6 +20,22 @@ export class TextElement {
         this.elementType = elementType;
         if (textContent) this.textContent = textContent;
     }
+
+    increaseHierarchy() {
+        const currentHierarchyIndex = textHierarchy.indexOf(this.elementType);
+        if (currentHierarchyIndex > 0) {
+            const newHierarchyIndex = currentHierarchyIndex - 1;
+            this.elementType = textHierarchy[newHierarchyIndex]
+        }
+    }
+
+    decreaseHierarchy() {
+        const currentHierarchyIndex = textHierarchy.indexOf(this.elementType);
+        if (currentHierarchyIndex < textHierarchy.length - 1) {
+            const newHierarchyIndex = currentHierarchyIndex + 1;
+            this.elementType = textHierarchy[newHierarchyIndex]
+        }
+    }
 }
 
 export const textHierarchy = [
