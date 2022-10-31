@@ -384,12 +384,24 @@ export default class App extends Vue {
 		}, 10);
 	}
 
-	decreaseBlockHierarchy() {
-		this.content[this.currentBlockIndex].decreaseHierarchy()
+	increaseBlockHierarchy() {
+		const currentBlock = this.content[this.currentBlockIndex]
+
+		const currentHierarchyIndex = textHierarchy.indexOf(currentBlock.elementType);
+        if (currentHierarchyIndex > 0) {
+            const newHierarchyIndex = currentHierarchyIndex - 1;
+            currentBlock.elementType = textHierarchy[newHierarchyIndex]
+        }
 	}
 
-	increaseBlockHierarchy() {
-		this.content[this.currentBlockIndex].increaseHierarchy()
+	decreaseBlockHierarchy() {
+		const currentBlock = this.content[this.currentBlockIndex]
+
+		const currentHierarchyIndex = textHierarchy.indexOf(currentBlock.elementType);
+        if (currentHierarchyIndex < textHierarchy.length - 1) {
+            const newHierarchyIndex = currentHierarchyIndex + 1;
+            currentBlock.elementType = textHierarchy[newHierarchyIndex]
+        }
 	}
 
 	async toggleFullscreen() {
