@@ -9,7 +9,8 @@ export enum TextElementType {
     KEYWORD_PRIMARY = "KeywordPrimary",
     KEYWORD_SECONDARY = "KeywordSecondary",
     SUP = "sup",
-    SUB = "sub"
+    SUB = "sub",
+    IMAGE_ELEMENT = "ImageElement"
 }
 
 export class TextElement {
@@ -29,5 +30,5 @@ export const textHierarchy = [
     TextElementType.PARAGRAPH_HEADING,
     TextElementType.LIST_ELEMENT_PRIMARY,
     TextElementType.LIST_ELEMENT_SECONDARY,
-    TextElementType.LIST_ELEMENT_TERTIARY
+    TextElementType.LIST_ELEMENT_TERTIARY,
 ]

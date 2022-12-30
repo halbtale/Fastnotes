@@ -62,6 +62,7 @@ import ParagraphHeading from './components/ParagraphHeading.vue';
 import ListElementPrimary from './components/ListElementPrimary.vue';
 import ListElementSecondary from './components/ListElementSecondary.vue';
 import ListElementTertiary from './components/ListElementTertiary.vue';
+import ImageElement from './components/ImageElement.vue';
 import { TextElement, TextElementType, textHierarchy } from './modules/TextElement';
 import AppDialog from './components/AppDialog.vue';
 
@@ -74,7 +75,8 @@ import AppDialog from './components/AppDialog.vue';
 		ListElementPrimary,
 		ListElementSecondary,
 		ListElementTertiary,
-		AppDialog
+		AppDialog,
+		ImageElement
 	}
 })
 export default class App extends Vue {
@@ -89,12 +91,23 @@ export default class App extends Vue {
 	handleBeforeInputEvent(e: Event, blockIndex: number) {
 		const event = e as InputEvent;
 		if (event.inputType === 'insertParagraph') {
-			this.content.splice(
-				blockIndex + 1,
-				0,
-				new TextElement(this.currentTextElementType)
-			);
 			event.preventDefault();
+			if (this.currentTextElementType === TextElementType.IMAGE_ELEMENT) {
+				const imageUrl = prompt("Image url:")
+				if (!imageUrl) return;
+				this.content.splice(
+					blockIndex + 1,
+					0,
+					new TextElement(this.currentTextElementType, imageUrl)
+				);
+			}
+			if (this.currentTextElementType !== TextElementType.IMAGE_ELEMENT) {
+				this.content.splice(
+					blockIndex + 1,
+					0,
+					new TextElement(this.currentTextElementType)
+				);
+			}
 			setTimeout(() => {
 				const element = this.$refs['block' + (blockIndex + 1)] as {
 					focusBlock: () => void;
@@ -110,7 +123,7 @@ export default class App extends Vue {
 			}
 		}
 	}
-
+	
 	syncBlockIndex(e: Event, blockIndex: number) {
 		this.currentBlockIndex = blockIndex;
 	}
@@ -148,6 +161,9 @@ export default class App extends Vue {
 					break;
 				case 'Digit9':
 					this.addInlineBlock(TextElementType.KEYWORD_SECONDARY);
+					break;
+				case 'Digit0':
+					this.currentTextElementType = TextElementType.IMAGE_ELEMENT;
 					break;
 				case 'KeyI':
 					this.importContent();
@@ -224,7 +240,6 @@ export default class App extends Vue {
 			selectedTextRange.surroundContents(spanElement);
 		}
 	}
-
 	moveBlockUp() {
 		if (this.currentBlockIndex < 1) return;
 		const oldContent = [...this.content];
